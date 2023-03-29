@@ -67,20 +67,23 @@ def test():
     assert o.trace() == 1
     assert o.melt() == 2
     assert o.melt() == 3
-    assert o.trace() == 7
-    assert o.trace() == 1
-    assert o.melt() == 2
-    assert o.melt() == 3
     assert o.melt() == 6
+    try:
+        raises(lambda: o.trace(), MealyError)
+    except AssertionError as e:
+        pass
+    raises(lambda: o.melt(), MealyError)
+    raises(lambda: o.mass(), MealyError)
+    o = main()
     assert o.trace() == 0
     assert o.trace() == 1
     assert o.melt() == 2
     assert o.melt() == 3
-    assert o.mass() == 5
-    assert o.melt() == 8
-    assert o.melt() == 9
-    assert o.trace() == 1
-    raises(lambda: o.trace(), MealyError)
+    assert o.trace() == 7
+    try:
+        raises(lambda: o.trace(), MealyError)
+    except AssertionError as e:
+        pass
     try:
         raises(lambda: o.melt(), MealyError)
     except AssertionError as e:
@@ -90,7 +93,19 @@ def test():
     assert o.trace() == 0
     assert o.trace() == 1
     assert o.melt() == 2
+    assert o.melt() == 3
+    assert o.mass() == 5
+    assert o.melt() == 8
+    assert o.melt() == 9
+    assert o.trace() == 1
+    assert o.melt() == 2
     assert o.trace() == 4
+    raises(lambda: o.trace(), MealyError)
+    try:
+        raises(lambda: o.melt(), MealyError)
+    except AssertionError as e:
+        pass
+    raises(lambda: o.mass(), MealyError)
 
 
 test()
